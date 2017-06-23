@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ob-la-di">
+    <output-path>$PROJECT_DIR$/out/artifacts/ob_la_di</output-path>
+    <root id="archive" name="ob-la-di.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="library" level="application" name="scala-sdk-2.12.1" />
+      <element id="module-output" name="Compiler" />
+      <element id="file-copy" path="$PROJECT_DIR$/functions.asm" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/scala-library.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,40 @@
+
+<statements> ::= { <statement> }
+
+<statement> ::= "var" <ident> { “,” <ident> } “;”
+				
+			  | "let" <ident> “=“ <expression> “;”
+
+			  | "if" <expression> <relop> <expression> “{”
+					<statements> 
+				“}”
+				[ "else" "}"
+					<statements>
+				"}"]
+
+		  	  | "while" <expression> <relop> <expression> “{”
+					<statements>
+				“}”
+
+			  | "print" ( <expression> | <string> ) { "," ( <expression> | <string> ) } “;”
+
+			  | "input" <ident> “;”
+
+
+<expression> ::= [ + | - ] <term> { ( + | - ) <term> }
+
+<term> ::= <factor> { ( * | / ) <factor> }
+
+<factor> ::= <ident> | <constant> | "(" <expression> ")"
+
+<ident> ::= <letter> { <letter> | <digit> }
+
+<string> ::= "”" { <letter> | <digit> } "”"
+
+<letter> ::= a | .. | Z
+
+<constant> ::= <digit> { <digit> }
+
+<digit> ::= 0 | .. | 9
+
+<relop> ::= <[=] | >[=] | =

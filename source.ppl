@@ -1,0 +1,43 @@
+var a, max, mul_3, mul_5;
+let a = 0;
+
+print "Inserisci max: ";
+input max;
+
+while a <= max {
+
+	let mul_3 = a;
+	let mul_5 = a;
+
+	while mul_3 > 0 {
+		let mul_3 = mul_3 - 3;
+	} 
+	while mul_5 > 0 {
+		let mul_5 = mul_5 - 5;
+	} 
+
+	if mul_3 = 0 {
+
+		if mul_5 = 0 {
+			println "FizzBuzz";
+		}
+		else {
+			println "Fizz";
+		}
+	} 
+	else {
+		if mul_5 = 0 {
+
+			if mul_3 = 0 {
+				println "FizzBuzz";
+			}
+			else {
+				println "Buzz";
+			}
+		} 
+		else {
+			println a;
+		}
+	}
+	let a = a + 1;
+}
