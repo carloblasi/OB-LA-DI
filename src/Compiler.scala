@@ -11,6 +11,9 @@ object Compiler {
 
 		val path: String = args(0)
 
+		if (!path.endsWith(".obl"))
+			Compiler.error("ERROR - FILE MUST BE .obl")
+
 		val tokens: ArrayBuffer[Token] = new Lexer(path).lex()
 
 		val AST = new Parser(tokens).parse().abstractNodes()
@@ -27,6 +30,7 @@ object Compiler {
 	def error(message: String): Unit = {
 
 		println(message)
+		println
 		System.exit(1)
 	}
 }

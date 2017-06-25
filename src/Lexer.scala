@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException
+
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 
@@ -6,7 +8,13 @@ import scala.io.Source
   */
 class Lexer(path: String) {
 
-	val source: Array[Char] = Source.fromFile(path, "UTF-8").toArray :+ ' '
+	var source: Array[Char] = null
+
+	try {
+		source = Source.fromFile(path, "UTF-8").toArray :+ ' '
+	} catch {
+		case e: FileNotFoundException => Compiler.error("ERROR - FILE NOT FOUND")
+	}
 
 	/**
 	  * Method that splits the source code in tokens and fills the tokens Array with them.
