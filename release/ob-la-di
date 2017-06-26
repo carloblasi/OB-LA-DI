@@ -1,0 +1,22 @@
+#!/bin/bash
+# OB-LA-DI Compiler Script 
+
+if [ "$#" != "1" ]
+then
+
+	echo "ERROR - MISSING SOURCE FILE PATH"
+	echo
+
+else
+
+	java -jar "/usr/local/bin/ob-la-di.jar" "$@"
+
+	if [ -e "$HOME/temp.asm" ]
+	then
+
+		cd $HOME && nasm -f macho64 -g temp.asm && ld -macosx_version_min 10.7.0 -lSystem -o temp temp.o && ./temp
+		rm "$HOME/temp.asm"
+		rm "$HOME/temp.o"
+		rm "$HOME/temp"
+	fi
+fi
