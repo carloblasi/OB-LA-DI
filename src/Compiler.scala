@@ -29,8 +29,7 @@ object Compiler {
 
 	def error(message: String): Unit = {
 
-		println(message)
-		println
+		println("\u001B[31m" + message + "\u001B[0m")
 		System.exit(1)
 	}
 }

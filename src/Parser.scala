@@ -22,12 +22,6 @@ class Parser(tokens: ArrayBuffer[Token]) {
 		tok
 	}
 
-	def error(message: String): Unit = {
-
-		println(message)
-		System.exit(1)
-	}
-
 	var nextToken: Token = _
 	var AST = new Node(nodeValue = "STATEMENTS")
 	var tempNode: Node = _
@@ -79,7 +73,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				nextToken = getNextToken()
 			}
 			else {
-				error("ERROR - MISSING LINEBREAK")
+				Compiler.error("ERROR - MISSING LINEBREAK")
 			}
 			tempNode = AST
 		}
@@ -108,7 +102,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				expression()
 			}
 			else {
-				error("ERROR - EQUAL EXPECTED")
+				Compiler.error("ERROR - EQUAL EXPECTED")
 			}
 
 			if (nextToken.tokenType == "linebreak") {
@@ -116,7 +110,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				if (verbose == true) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			} else {
-				error("ERROR - MISSING LINEBREAK")
+				Compiler.error("ERROR - MISSING LINEBREAK")
 			}
 
 			tempNode = AST
@@ -179,16 +173,16 @@ class Parser(tokens: ArrayBuffer[Token]) {
 							nextToken = getNextToken()
 						}
 						else {
-							error("ERROR - OPENING SQUARE BRACKET EXPECTED")
+							Compiler.error("ERROR - OPENING SQUARE BRACKET EXPECTED")
 						}
 					}
 				}
 				else {
-					error("ERROR - OPENING SQUARE BRACKET EXPECTED")
+					Compiler.error("ERROR - OPENING SQUARE BRACKET EXPECTED")
 				}
 			}
 			else {
-				error("ERROR - RELOP EXPECTED")
+				Compiler.error("ERROR - RELOP EXPECTED")
 			}
 			tempNode = AST
 		}
@@ -232,11 +226,11 @@ class Parser(tokens: ArrayBuffer[Token]) {
 					nextToken = getNextToken()
 				}
 				else {
-					error("ERROR - OPENING SQUARE BRACKET EXPECTED")
+					Compiler.error("ERROR - OPENING SQUARE BRACKET EXPECTED")
 				}
 			}
 			else {
-				error("ERROR - RELOP EXPECTED")
+				Compiler.error("ERROR - RELOP EXPECTED")
 			}
 			tempNode = AST
 		}
@@ -283,7 +277,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				nextToken = getNextToken()
 			}
 			else {
-				error("ERROR - MISSING LINEBREAK")
+				Compiler.error("ERROR - MISSING LINEBREAK")
 			}
 
 			tempNode = AST
@@ -305,7 +299,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				if (verbose == true) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			} else {
-				error("ERROR - MISSING LINEBREAK")
+				Compiler.error("ERROR - MISSING LINEBREAK")
 			}
 
 			tempNode = AST
@@ -332,7 +326,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			if (verbose == true) println(" -- Variable identified: " + nextToken.tokenValue)
 		}
 		else {
-			error("ERROR - IDENT EXPECTED")
+			Compiler.error("ERROR - IDENT EXPECTED")
 		}
 	}
 
@@ -349,7 +343,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			if (verbose == true) println(" -- Constant identified: " + nextToken.tokenValue)
 		}
 		else {
-			error("ERROR - CONSTANT EXPECTED")
+			Compiler.error("ERROR - CONSTANT EXPECTED")
 		}
 	}
 
@@ -427,14 +421,14 @@ class Parser(tokens: ArrayBuffer[Token]) {
 				expression()
 
 				if (nextToken.tokenType != "arithparen") {
-					error("ERROR - MISSING CLOSING PARENTHESIS")
+					Compiler.error("ERROR - MISSING CLOSING PARENTHESIS")
 				}
 				else {
 					if (verbose == true) println(" -- Parenthesis identified: " + nextToken.tokenValue)
 				}
 			}
 			else {
-				error("ERROR - MISSING OPENING PARENTHESIS")
+				Compiler.error("ERROR - MISSING OPENING PARENTHESIS")
 			}
 		}
 	}
