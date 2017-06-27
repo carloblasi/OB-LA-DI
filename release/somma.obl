@@ -1,0 +1,13 @@
+
+var a, b;
+
+println "Programma che calcola la somma di due numeri inseriti dall'utente.";
+println "";
+
+print "Inserisci primo addendo: ";
+input a;
+
+print "Inserisci secondo addendo: ";
+input b;
+
+println "Risultato = ", a + b;

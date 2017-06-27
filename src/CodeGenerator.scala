@@ -7,7 +7,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by carloblasi on 06/05/17.
   */
-class CodeGenerator() {
+class CodeGenerator(filename: String) {
 
 	private def generate(AST: Node, symTable: ArrayBuffer[Entry], writer: BufferedWriter, brAddr: Int = 0, lsAddr: Int = 0): Unit = {
 
@@ -239,7 +239,7 @@ class CodeGenerator() {
 
 	def gen(AST: Node, symTable: ArrayBuffer[Entry]): Unit = {
 
-		val file = new File("temp.asm")
+		val file = new File(filename + ".asm")
 		val functions = Source.fromInputStream(getClass.getResourceAsStream("/functions.asm")).mkString
 		//val file = File.createTempFile("obl", "asm")
 

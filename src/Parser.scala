@@ -18,7 +18,6 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 		val tok = tokens(next)
 		next += 1
-		//println(tok)
 		tok
 	}
 
@@ -307,8 +306,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 		else {
 
-			println("@@@@@@@@@@ ERROR @@@@@@@@@@")
-			println("@@@@@@@@@@ " + nextToken.tokenValue + " @@@@@@@@@@")
+			Compiler.error("ERROR - KEYWORD UNKNOWN")
 			nextToken = getNextToken()
 		}
 	}

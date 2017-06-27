@@ -3,20 +3,25 @@
 
 if [ "$#" != "1" ]
 then
-
-	echo "ERROR - MISSING SOURCE FILE PATH"
-	echo
+	
+	echo -e "\033[0;31mERROR - MISSING SOURCE FILE PATH \033[0m"
 
 else
 
-	java -jar "/usr/local/bin/ob-la-di.jar" "$@"
+	java -jar "/usr/local/bin/ob-la-di.jar" "$1"
+	
+	filename=$1
+	filename=${filename##*/}
+	filename=${filename%.*}
 
-	if [ -e "$HOME/temp.asm" ]
+	if [ -e "$HOME/$filename.asm" ]
 	then
 
-		cd $HOME && nasm -f macho64 -g temp.asm && ld -macosx_version_min 10.7.0 -lSystem -o temp temp.o && ./temp
-		rm "$HOME/temp.asm"
-		rm "$HOME/temp.o"
-		rm "$HOME/temp"
+		cd $HOME && nasm -f macho64 -g $filename.asm 
+				 && ld -macosx_version_min 10.7.0 -lSystem -o $filename $filename.o 
+				 && ./$filename
+				 
+		rm "$HOME/$filename.asm"
+		rm "$HOME/$filename.o"
 	fi
 fi
