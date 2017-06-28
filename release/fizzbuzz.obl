@@ -1,5 +1,5 @@
 var a, max, mul_3, mul_5;
-let a = 0;
+let a = 1;
 
 print "Inserisci max: ";
 input max;
