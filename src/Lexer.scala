@@ -130,8 +130,15 @@ class Lexer(path: String) {
 			else if (ch == '<' || ch == '>') {
 
 				token += ch
+
 				if (i + 1 < source.length - 1) {
-					if (source(i + 1) == '=') {
+
+					if (ch == '<' && source(i + 1) == '>') {
+
+						token += source(i + 1)
+						i += 1
+					}
+					else if (source(i + 1) == '=') {
 
 						token += source(i + 1)
 						i += 1

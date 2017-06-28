@@ -1,0 +1,56 @@
+var op, a, b;
+
+println "Calcolatrice";
+println "";
+
+let op = 1;
+
+while op > 0 {
+
+	println "Che operazione vuoi eseguire?";
+	println "1 - Addizione";
+	println "2 - Sottrazione";
+	println "3 - Moltiplicazione";
+	println "4 - Divisione";
+	println "0 - Termina il programma";
+
+	print "Scelta: "; input op; println "";
+
+	if op < 5 {
+
+		if op = 0 {
+			println "Programma terminato";
+		}
+		else {
+
+			print "a = "; input a;
+			print "b = "; input b;
+
+			if op = 1 {
+
+				println "a + b = ", a + b;
+				println "";
+			}
+			if op = 2 {
+
+				println "a - b = ", a - b;
+				println "";
+			}
+			if op = 3 {
+
+				println "a * b = ", a * b;
+				println "";
+			}
+			if op = 4 {
+
+				println "a / b = ", a / b;
+				println "";
+			}
+		}
+	}
+	else {
+
+		println "Operazione non valida";
+		println "";
+	}
+}

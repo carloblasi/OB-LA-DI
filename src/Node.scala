@@ -95,17 +95,17 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	  * BUG: variables declared in an IFBLOCK are valid also in the ELSEBLOCK
 	  * @return a filled symbol table
 	  */
-	def contextualAnalysis(symTable: ArrayBuffer[Entry] = new ArrayBuffer[Entry](), scope: Int = 0, functionScope: String = "MAIN"): ArrayBuffer[Entry] = {
+	def semanticAnalysis(symTable: ArrayBuffer[Entry] = new ArrayBuffer[Entry](), scope: Int = 0, functionScope: String = "MAIN"): ArrayBuffer[Entry] = {
 
 		if (this.nodeValue == "LOOPST" || this.nodeValue == "CONDBR") {
 
 			this.children.foreach(child => {
 
 				if (child.nodeValue == "IFBLOCK" || child.nodeValue == "ELSEBLOCK" || child.nodeValue == "WHILEBLOCK") {
-					child.children.foreach(child => child.contextualAnalysis(symTable, scope + 1, functionScope))
+					child.children.foreach(child => child.semanticAnalysis(symTable, scope + 1, functionScope))
 				}
 				else {
-					child.contextualAnalysis(symTable, scope, functionScope)
+					child.semanticAnalysis(symTable, scope, functionScope)
 				}
 			})
 		}
@@ -117,7 +117,7 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 
 				child.setScope(scope)
 				if (symTable.contains(entry))
-					Compiler.error("ERROR - VARIABLE " + child.nodeValue + " ALREADY DECLARED IN SCOPE: " + scope)
+					Compiler.error("ERROR - VARIABLE: " + child.nodeValue + " ALREADY DECLARED IN SCOPE: " + scope)
 
 				symTable += entry
 			})
@@ -153,7 +153,7 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 					}
 					else {
 						if (entry.initialized == false)
-							Compiler.error("ERROR - INITIALIZED VARIABLE: " + this.nodeValue + " IN SCOPE: " + scope)
+							Compiler.error("ERROR - UNINITIALIZED VARIABLE: " + this.nodeValue + " IN SCOPE: " + scope)
 					}
 					this.setScope(scope)
 				}
@@ -170,7 +170,7 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 
 		}
 		else {
-			this.children.foreach(child => child.contextualAnalysis(symTable, scope, functionScope))
+			this.children.foreach(child => child.semanticAnalysis(symTable, scope, functionScope))
 		}
 		symTable
 	}

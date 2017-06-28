@@ -107,6 +107,14 @@ class CodeGenerator(filename: String) {
 						writer.write("\t" + "JNE     " + ".B" + (brAddr + 1) + "\n")
 					}
 				}
+				case "<>" => {
+
+					if (AST.children.size == 3) {
+						writer.write("\t" + "JE     " + ".B" + (brAddr) + "\n")
+					} else {
+						writer.write("\t" + "JE     " + ".B" + (brAddr + 1) + "\n")
+					}
+				}
 				case "<=" => {
 
 					if (AST.children.size == 3) {
@@ -207,6 +215,7 @@ class CodeGenerator(filename: String) {
 				case "<=" => writer.write("\t" + "JG      " + ".L" + (lsAddr + 1) + "\n")
 				case ">=" => writer.write("\t" + "JL      " + ".L" + (lsAddr + 1) + "\n")
 				case "=" => writer.write("\t" + "JNE     " + ".L" + (lsAddr + 1) + "\n")
+				case "<>" => writer.write("\t" + "JE      " + ".L" + (lsAddr + 1) + "\n")
 			}
 
 			generate(AST.children(1), symTable, writer, CodeGenerator.brc, CodeGenerator.lpCount)

@@ -20,7 +20,7 @@ object Compiler {
 
 		val AST = new Parser(tokens).parse().abstractNodes()
 
-		val symbolTable = AST.contextualAnalysis()
+		val symbolTable = AST.semanticAnalysis()
 
 		new CodeGenerator(filename).gen(AST, symbolTable)
 

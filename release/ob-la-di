@@ -17,9 +17,7 @@ else
 	if [ -e "$HOME/$filename.asm" ]
 	then
 
-		cd $HOME && nasm -f macho64 -g $filename.asm 
-				 && ld -macosx_version_min 10.7.0 -lSystem -o $filename $filename.o 
-				 && ./$filename
+		cd $HOME && nasm -f macho64 -g $filename.asm && ld -macosx_version_min 10.7.0 -lSystem -o $filename $filename.o && ./$filename
 				 
 		rm "$HOME/$filename.asm"
 		rm "$HOME/$filename.o"
