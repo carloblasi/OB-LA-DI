@@ -250,7 +250,6 @@ class CodeGenerator(filename: String) {
 
 		val file = new File(filename + ".asm")
 		val functions = Source.fromInputStream(getClass.getResourceAsStream("/functions.asm")).mkString
-		//val file = File.createTempFile("obl", "asm")
 
 		val writer = new BufferedWriter(new FileWriter(file))
 		writer.write(functions + "\n;" + "-" * 99 + ";\n\n")

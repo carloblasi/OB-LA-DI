@@ -3,8 +3,8 @@ var op, a, b;
 println "Calcolatrice";
 println "";
 
-let op = 1;
-
+#let op = 1;
+#
 while op > 0 {
 
 	println "Che operazione vuoi eseguire?";

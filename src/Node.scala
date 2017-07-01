@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 class Node(var nodeValue: String, var nodeType: String = "") {
 
-	var children = ArrayBuffer[Node]()
+	var children: ArrayBuffer[Node] = ArrayBuffer[Node]()
 	var parent: Node = null
 	var scope: Int = -1
 
@@ -40,7 +40,7 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	}
 
 	/**
-	  * Method to set the parent of this Node
+	  * Method to set the scope of this Node
 	  */
 	private def setScope(scope: Int): Unit = {
 		this.scope = scope

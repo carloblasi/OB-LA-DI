@@ -8,7 +8,7 @@
 			  | "if" <expression> <relop> <expression> “{”
 					<statements> 
 				“}”
-				[ "else" "}"
+				[ "else" "{"
 					<statements>
 				"}"]
 
