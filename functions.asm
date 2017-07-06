@@ -9,7 +9,7 @@ intbuff:		resb	21
 section .text
 ;---------------------------------------------------------------------------------------------------;
 ; int readint()
-; Function which reads a string and convert it to int
+; Function which reads a string and converts it to int
 ; Buffer to write into goes into RAX, the string will be stored in the buffer
 
 getint:
