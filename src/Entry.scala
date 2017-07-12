@@ -3,8 +3,8 @@
   * 
   * An Entry is an object representing an entry in the symbol table.
   *
-  * @param entryType the type of the identifier (either "INT" or "STRING")
-  * @param entryKind the kind of the identifier (either "variable" or "function")
+  * @param entryType the type of the identifier (either "INT" or "STRING").
+  * @param entryKind the kind of the identifier (either "variable" or "function").
   */
 class Entry(var entryValue: String, var entryType: String, var entryKind: String, var entryScope: Int = 0, var entryFunctionScope: String, var initialized: Boolean = false) {
 

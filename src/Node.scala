@@ -5,8 +5,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   * A Node is an object representing a node in a tree; a Node can be a tree itself.
   *
-  * @param nodeValue The block of characters of which the token is made of
-  * @param nodeType The category of the token
+  * @param nodeValue The block of characters of which the token is made of.
+  * @param nodeType The category of the token.
   */
 class Node(var nodeValue: String, var nodeType: String = "") {
 
@@ -15,8 +15,8 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	var scope: Int = -1
 
 	/**
-	 * Method to add a child Node to the list of children of this Node
-	 */
+	  * Adds a child Node to the list of children of this Node.
+	  */
 	def addChild(node: Node): Unit = {
 
 		node.setParent(this)
@@ -24,8 +24,8 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	}
 
 	/**
-	 * Method to get a child Node from the list of children of this Node given its index
-	 */
+	  * Gets a child Node from the list of children of this Node given its index.
+	  */
 	def getChild(index: Int): Node = {
 
 		val idx = index - 1
@@ -33,23 +33,23 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	}
 
 	/**
-	 * Method to set the parent of this Node
-	 */
+	  * Sets the parent of this Node.
+	  */
 	private def setParent(node: Node): Unit = {
 		this.parent = node
 	}
 
 	/**
-	  * Method to set the scope of this Node
+	  * Sets the scope of this Node.
 	  */
 	private def setScope(scope: Int): Unit = {
 		this.scope = scope
 	}
 
 	/**
-	 * Method to print the tree representation starting at the node on which this method
-	 * is called
-	 */
+	  * Prints the tree representation starting from the node on which this method
+	  * is called.
+	  */
 	def printTree(depth: Int = 0): Unit = {
 
 		println("      " * depth + this)
@@ -57,9 +57,9 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	}
 
 	/**
-	 * Method to abstract the tree starting at the node on which this method is called,
-	 * which means removing all unnecessary nodes
-	 */
+	  * Abstracts the tree, which means removing all unnecessary nodes, starting from
+	  * the node on which this method is called.
+	  */
 	def abstractNodes(): Node = {
 
 		while (this.children.size == 1 && (this.nodeValue != "PRINT" && this.nodeValue != "INPUT" &&
@@ -91,9 +91,9 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 	}
 
 	/**
-	  * Method to fill the symbol table and typecheck the source code.
-	  * BUG: variables declared in an IFBLOCK are valid also in the ELSEBLOCK
-	  * @return a filled symbol table
+	  * Fills the symbol table and typechecks the source code.
+	  * BUG: variables declared in an IFBLOCK are valid also in the ELSEBLOCK.
+	  * @return a filled symbol table.
 	  */
 	def semanticAnalysis(symTable: ArrayBuffer[Entry] = new ArrayBuffer[Entry](), scope: Int = 0, functionScope: String = "MAIN"): ArrayBuffer[Entry] = {
 
@@ -146,7 +146,7 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 				}
 				else {
 					val entry = entries.reduceLeft((x, y) => if (x.entryScope > y.entryScope) x else y)
-//					println("variable: " + this.nodeValue + " in this scope: " + scope + " " + entry)
+					// println("variable: " + this.nodeValue + " in this scope: " + scope + " " + entry)
 
 					if (this.parent.nodeValue == "=" && this.parent.children(0) == this) {
 						entry.setInitialized(true)
@@ -167,7 +167,6 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 			val entry = new Entry(entryValue = this.nodeValue, entryType = "STRING", entryKind = "constant", entryScope = -1, entryFunctionScope = functionScope)
 			this.nodeValue = entry.strAddress
 			symTable += entry
-
 		}
 		else {
 			this.children.foreach(child => child.semanticAnalysis(symTable, scope, functionScope))
@@ -175,14 +174,16 @@ class Node(var nodeValue: String, var nodeType: String = "") {
 		symTable
 	}
 
+	/**
+	  * Returns the textual representation of this Node.
+	  * @return the textual representation of this Node.
+	  */
 	override def toString: String = {
 
 		this.nodeType match {
 
-			//case "ident" => "Value: " + nodeValue + ", scope: " + this.scope
 			case "" => "Value: " + nodeValue
 			case _ => "Value: " + nodeValue + ", type: " + this.nodeType
-
 		}
 	}
 

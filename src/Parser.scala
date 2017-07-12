@@ -5,14 +5,12 @@ import scala.collection.mutable.ArrayBuffer
   */
 class Parser(tokens: ArrayBuffer[Token]) {
 
-	//var tokens = ArrayBuffer[Token]()
 	val verbose = false
 	var next = 0
 
 	/**
-	  * Method that returns the next Token from the list previously filled by the lexer()
-	  * method.
-	  * @return the next Token
+	  * Method that returns the next Token from the list previously filled by the lexer.
+	  * @return the next Token.
 	  */
 	def getNextToken(): Token = {
 
@@ -27,9 +25,9 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	var depth = 0
 
 	/**
-	  * Method that makes a tree out of the list of tokens previously filled by the lexer()
-	  * method.
+	  * Generates a tree out of the list of tokens previously filled by the lexer.
 	  * It checks the syntactical correctness of the code.
+	  * @return the syntax tree.
 	  */
 	def parse(): Node = {
 
@@ -37,14 +35,14 @@ class Parser(tokens: ArrayBuffer[Token]) {
 		nextToken = getNextToken()
 		while (nextToken.tokenType != "EOF") {
 
-			if (verbose == true) println(next)
+			if (verbose) println(next)
 			statement()
 		}
 		AST
 	}
 
 	/**
-	  * Method equivalent to the syntax rule for the <statement>
+	  * Method equivalent to the syntax rule <statement>.
 	  */
 	def statement(): Unit = {
 
@@ -54,21 +52,21 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n)
 			tempNode = n
 
-			if (verbose == true) println(" -- VARIABLE DECLARATION")
+			if (verbose) println(" -- VARIABLE DECLARATION")
 			nextToken = getNextToken()
 			ident()
 			nextToken = getNextToken()
 
 			while (nextToken.tokenType == "comma") {
 
-				if (verbose == true) println(" -- COMMA FOUND")
+				if (verbose) println(" -- COMMA FOUND")
 				nextToken = getNextToken()
 				ident()
 				nextToken = getNextToken()
 			}
 			if (nextToken.tokenType == "linebreak") {
 
-				if (verbose == true) println(" -- LINEBREAK")
+				if (verbose) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			}
 			else {
@@ -83,20 +81,15 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n)
 			tempNode = n
 
-			/**
-			  * Aggiungere il tipo di vardec, quindi nel contextanalyzer
-			  * però bisogna controllare che ad una variabile dichiarata string non venga assegnata un espressione
-			  * si può controllare nel parser, se il nextToken è di tipo string allora controlla che ci siano le quotes altrimenti fai l'espressione?
-			  */
-			if (verbose == true) println(" -- VARIABLE ASSIGNATION")
+			if (verbose) println(" -- VARIABLE ASSIGNATION")
 			nextToken = getNextToken()
 			ident()
 			nextToken = getNextToken()
 
 			if (nextToken.tokenType == "eq") {
 
-				if (verbose == true) println(" -- EQUAL FOUND")
-				tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "eq")) // nextToken.value = "="
+				if (verbose) println(" -- EQUAL FOUND")
+				tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "eq"))
 				nextToken = getNextToken()
 				expression()
 			}
@@ -106,7 +99,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 			if (nextToken.tokenType == "linebreak") {
 
-				if (verbose == true) println(" -- LINEBREAK")
+				if (verbose) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			} else {
 				Compiler.error("ERROR - MISSING LINEBREAK")
@@ -124,14 +117,14 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n2)
 			tempNode = n2
 
-			if (verbose == true) println(" -- CONDITIONAL BRANCH")
+			if (verbose) println(" -- CONDITIONAL BRANCH")
 			nextToken = getNextToken()
 			expression()
 			tempNode = n2
 
 			if (nextToken.tokenType == "relop" || nextToken.tokenType == "eq") {
 
-				if (verbose == true) println(" -- RELOP FOUND")
+				if (verbose) println(" -- RELOP FOUND")
 				tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "relop"))
 				nextToken = getNextToken()
 				expression()
@@ -139,7 +132,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 				if (nextToken.tokenType == "paren") {
 
-					if (verbose == true) println(" -- LPAREN FOUND")
+					if (verbose) println(" -- LPAREN FOUND")
 					val n3 = new Node(nodeValue = "IFBLOCK")
 					tempNode.addChild(n3)
 					tempNode = n3
@@ -149,7 +142,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 						statement()
 						tempNode = n3
 					}
-					if (verbose == true) println(" -- RPAREN FOUND")
+					if (verbose) println(" -- RPAREN FOUND")
 
 					nextToken = getNextToken()
 					if (nextToken.tokenValue == "else") {
@@ -158,7 +151,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 						nextToken = getNextToken()
 						if (nextToken.tokenType == "paren") {
 
-							if (verbose == true) println(" -- LPAREN FOUND")
+							if (verbose) println(" -- LPAREN FOUND")
 							val n4 = new Node(nodeValue = "ELSEBLOCK")
 							tempNode.addChild(n4)
 							tempNode = n4
@@ -168,7 +161,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 								statement()
 								tempNode = n4
 							}
-							if (verbose == true) println(" -- RPAREN FOUND")
+							if (verbose) println(" -- RPAREN FOUND")
 							nextToken = getNextToken()
 						}
 						else {
@@ -195,14 +188,14 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n2)
 			tempNode = n2
 
-			if (verbose == true) println(" -- LOOP STATEMENT")
+			if (verbose) println(" -- LOOP STATEMENT")
 			nextToken = getNextToken()
 			expression()
 			tempNode = n2
 
 			if (nextToken.tokenType == "relop" || nextToken.tokenType == "eq") {
 
-				if (verbose == true) println(" -- RELOP FOUND")
+				if (verbose) println(" -- RELOP FOUND")
 				tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "relop"))
 				nextToken = getNextToken()
 				expression()
@@ -210,7 +203,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 				if (nextToken.tokenType == "paren") {
 
-					if (verbose == true) println(" -- LPAREN FOUND")
+					if (verbose) println(" -- LPAREN FOUND")
 					val n3 = new Node(nodeValue = "WHILEBLOCK")
 					tempNode.addChild(n3)
 					tempNode = n3
@@ -221,7 +214,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 						statement()
 						tempNode = n3
 					}
-					if (verbose == true) println(" -- RPAREN FOUND")
+					if (verbose) println(" -- RPAREN FOUND")
 					nextToken = getNextToken()
 				}
 				else {
@@ -240,7 +233,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n)
 			tempNode = n
 
-			if (verbose == true) println(s" -- ${nextToken.tokenValue} STATEMENT")
+			if (verbose) println(s" -- ${nextToken.tokenValue} STATEMENT")
 
 			nextToken = getNextToken()
 			if (nextToken.tokenType == "strliteral") {
@@ -256,7 +249,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			while (nextToken.tokenType == "comma") {
 
 				tempNode = n
-				if (verbose == true) println(" -- COMMA FOUND")
+				if (verbose) println(" -- COMMA FOUND")
 
 				nextToken = getNextToken()
 				if (nextToken.tokenType == "strliteral") {
@@ -272,7 +265,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 			if (nextToken.tokenType == "linebreak") {
 
-				if (verbose == true) println(" -- LINEBREAK")
+				if (verbose) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			}
 			else {
@@ -288,14 +281,14 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			tempNode.addChild(n)
 			tempNode = n
 
-			if (verbose == true) println(" -- INPUT STATEMENT")
+			if (verbose) println(" -- INPUT STATEMENT")
 			nextToken = getNextToken()
 			ident()
 			nextToken = getNextToken()
 
 			if (nextToken.tokenType == "linebreak") {
 
-				if (verbose == true) println(" -- LINEBREAK")
+				if (verbose) println(" -- LINEBREAK")
 				nextToken = getNextToken()
 			} else {
 				Compiler.error("ERROR - MISSING LINEBREAK")
@@ -312,7 +305,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	}
 
 	/**
-	  * Method that correctly identifies an identifier (a declared variable's name)
+	  * Correctly identifies an identifier (a declared variable's name).
 	  */
 	def ident(): Unit = {
 
@@ -321,7 +314,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			val n = new Node(nodeValue = "IDENT")
 			tempNode.addChild(n)
 			n.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "ident"))
-			if (verbose == true) println(" -- Variable identified: " + nextToken.tokenValue)
+			if (verbose) println(" -- Variable identified: " + nextToken.tokenValue)
 		}
 		else {
 			Compiler.error("ERROR - IDENT EXPECTED")
@@ -329,7 +322,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	}
 
 	/**
-	  * Method that correctly identifies a constant (a number)
+	  * Correctly identifies a constant (a number).
 	  */
 	def constant(): Unit = {
 
@@ -338,7 +331,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 			val n = new Node(nodeValue = "CONST")
 			tempNode.addChild(n)
 			n.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = nextToken.tokenType))
-			if (verbose == true) println(" -- Constant identified: " + nextToken.tokenValue)
+			if (verbose) println(" -- Constant identified: " + nextToken.tokenValue)
 		}
 		else {
 			Compiler.error("ERROR - CONSTANT EXPECTED")
@@ -346,7 +339,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	}
 
 	/**
-	  * Method that identifies an expression
+	  * Identifies an expression.
 	  */
 	def expression(): Unit = {
 
@@ -356,7 +349,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 		if (nextToken.tokenValue == "-" || nextToken.tokenValue == "+") {
 
-			if (verbose == true) println(" -- Unary identified: " + nextToken.tokenValue)
+			if (verbose) println(" -- Unary identified: " + nextToken.tokenValue)
 			if (nextToken.tokenValue == "-")
 				tempNode.addChild(new Node(nodeValue = "NEG", nodeType = "op"))
 			nextToken = getNextToken()
@@ -366,7 +359,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 		while (nextToken.tokenValue == "+" || nextToken.tokenValue == "-") {
 
-			if (verbose == true) println(" -- Operation identified: " + nextToken.tokenValue)
+			if (verbose) println(" -- Operation identified: " + nextToken.tokenValue)
 			tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "op"))
 			nextToken = getNextToken()
 			term()
@@ -374,7 +367,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	}
 
 	/**
-	  * Method that identifies a term
+	  * Identifies a term.
 	  */
 	def term(): Unit = {
 
@@ -387,7 +380,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 		while (nextToken.tokenValue == "*" || nextToken.tokenValue == "/") {
 
-			if (verbose == true) println(" -- Operation identified: " + nextToken.tokenValue)
+			if (verbose) println(" -- Operation identified: " + nextToken.tokenValue)
 			tempNode.addChild(new Node(nodeValue = nextToken.tokenValue, nodeType = "op"))
 			nextToken = getNextToken()
 			factor()
@@ -396,7 +389,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 	}
 
 	/**
-	  * Method that identifies a factor
+	  * Identifies a factor.
 	  */
 	def factor(): Unit = {
 
@@ -414,7 +407,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 
 			if (nextToken.tokenType == "arithparen") {
 
-				if (verbose == true) println(" -- Parenthesis identified: " + nextToken.tokenValue)
+				if (verbose) println(" -- Parenthesis identified: " + nextToken.tokenValue)
 				nextToken = getNextToken()
 				expression()
 
@@ -422,7 +415,7 @@ class Parser(tokens: ArrayBuffer[Token]) {
 					Compiler.error("ERROR - MISSING CLOSING PARENTHESIS")
 				}
 				else {
-					if (verbose == true) println(" -- Parenthesis identified: " + nextToken.tokenValue)
+					if (verbose) println(" -- Parenthesis identified: " + nextToken.tokenValue)
 				}
 			}
 			else {
