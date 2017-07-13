@@ -7,8 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d5b91d-84e9-4133-8c97-8fb857f0a1cb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.asm" afterPath="$PROJECT_DIR$/functions.asm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CodeGenerator.scala" afterPath="$PROJECT_DIR$/src/CodeGenerator.scala" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <manually-removed-from-ignored>
@@ -33,7 +33,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Compiler.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Compiler.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Compiler.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
@@ -92,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CodeGenerator.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CodeGenerator.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CodeGenerator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3840">
-              <caret line="260" column="43" lean-forward="false" selection-start-line="260" selection-start-column="43" selection-end-line="260" selection-end-column="43" />
+            <state relative-caret-position="423">
+              <caret line="286" column="49" lean-forward="false" selection-start-line="286" selection-start-column="49" selection-end-line="286" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -161,7 +161,6 @@
         <option value="$PROJECT_DIR$/src/org/carloblasi/Compiler.scala" />
         <option value="$PROJECT_DIR$/src/Type.scala" />
         <option value="$PROJECT_DIR$/bnf.txt" />
-        <option value="$PROJECT_DIR$/src/CodeGenerator.scala" />
         <option value="$PROJECT_DIR$/functions.asm" />
         <option value="$PROJECT_DIR$/src/Token.scala" />
         <option value="$PROJECT_DIR$/src/Compiler.scala" />
@@ -169,6 +168,7 @@
         <option value="$PROJECT_DIR$/src/Entry.scala" />
         <option value="$PROJECT_DIR$/src/Parser.scala" />
         <option value="$PROJECT_DIR$/src/Lexer.scala" />
+        <option value="$PROJECT_DIR$/src/CodeGenerator.scala" />
       </list>
     </option>
   </component>
@@ -1072,14 +1072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CodeGenerator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3840">
-          <caret line="260" column="43" lean-forward="false" selection-start-line="260" selection-start-column="43" selection-end-line="260" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Token.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1110,6 +1102,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="8" column="60" lean-forward="false" selection-start-line="8" selection-start-column="60" selection-end-line="8" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CodeGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="286" column="49" lean-forward="false" selection-start-line="286" selection-start-column="49" selection-end-line="286" selection-end-column="49" />
           <folding />
         </state>
       </provider>

@@ -314,7 +314,7 @@ parseint:
 
 .resetstack:
 	
-	push	rdx				; put the value retrieved back on the stack, or it might break
+	push	rdx				; put the retrieved value back on the stack, or it might break
 
 .return:
 	
@@ -373,24 +373,3 @@ quit:
 ; 6th argument		stack			r9		;
 ;											;
 ;-------------------------------------------;
-
-%macro printString 1
-	
-	mov		rax, %1
-	call	printstring
-
-%endmacro
-
-%macro printStringNL 1
-	
-	mov		rax, %1
-	call	printstringnl
-
-%endmacro
-
-%macro readString 1
-	
-	mov		rax, %1
-	call	readstring
-
-%endmacro

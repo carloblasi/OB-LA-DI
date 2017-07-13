@@ -285,7 +285,7 @@ class CodeGenerator(filename: String) {
 		writer.write("\t" + "MOV     rax, rsp" + "\n")
 		writer.write("\t" + "CALL    printstring" + "\n")
 		writer.write("\t" + "POP     rax" + "\n")
-		writer.write("\t" + "MOV     rax, sys_exit\n\tMOV     rbx, 0\n\tSYSCALL\n\tRET\n")
+		writer.write("\t" + "CALL    quit" + "\n")
 		writer.close()
 	}
 }
