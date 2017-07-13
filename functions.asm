@@ -266,6 +266,7 @@ parseint:
 	push	rcx				; save RCX value in the stack
 	push	rdx				; save RDX value in the stack
 	push	rsi				; save RSI value in the stack
+	xor		rdx, rdx		; reset RDX so it can be used as a flag for negative numbers
 	mov		rsi, rax		; move pointer in RAX (number to convert) into RSI 
 	mov		rax, 0			; initialise RAX with decimal value 0
 	mov		rcx, 0			; initialise RCX (counter) with decimal value 0
@@ -274,6 +275,10 @@ parseint:
 
 	xor		rbx, rbx		; resets both lower and uppper bytes of RBX to be 0
 	mov		bl, [rsi + rcx]	; move a single byte into ebx register's lower half
+
+	cmp		bl, 45			; compare RBX register's lower half value against ASCII value 45 ('-' character)
+	je		.negative		; jump if equal to label 'negative'
+
 	cmp		bl, 48			; compare RBX register's lower half value with ASCII value 48 (char value '0')
 	jl		.finished		; jump if less than to label 'finished'
 	cmp		bl, 57			; compare RBX register's lower half value against ASCII value 57 (char value '9')
@@ -290,10 +295,28 @@ parseint:
 	inc		rcx				; increment RCX (our counter register)
 	jmp		.multiplyloop	; continue multiply loop
 
+.negative:
+
+	inc		rcx				; increment RCX (our counter register)
+	push	1618			; move phi number on the stack, this will be the flag
+	jmp		.multiplyloop	; continue multiply loop
+
 .finished:
 	
 	mov		rbx, 10			; move decimal value 10 into RBX
-	div		rbx				; divide RAX by value in RBX (in this case 10)
+	div		rbx				; divide RAX by 10
+
+	pop		rdx				; retrieve the flag from the stack
+	cmp		rdx, 1618		; is the negative flag set?
+	jne		.resetstack		; if not, put the value back on the stack
+	neg		rax				; else, negate RAX (the number)
+	jmp		.return			; and leave the function
+
+.resetstack:
+	
+	push	rdx				; put the value retrieved back on the stack, or it might break
+
+.return:
 	
 	pop		rsi				; restore RSI
 	pop		rdx				; restore RDX
