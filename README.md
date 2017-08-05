@@ -18,6 +18,7 @@ This project also provides the syntax highlighting configuration file for Sublim
 
 ## Language
 OB-LA-DI is a made-up elementary language inspired by BASIC and C. Given its educational purpose, it is a really simple language, which means it only uses the Integer type and it has no function declaring capabilities. 
+Three code examples are provided with the project, within the `release` folder.
 
 ## Compatibility
 This compiler works only on Mac OS X computers with Intel processor (almost every Apple computer built from 2007 until now).
